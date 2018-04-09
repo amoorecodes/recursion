@@ -4,7 +4,37 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-) {
+
+var getElementsByClassName = function(className) {
   // your code here
+  /* 
+  returns array-like object with all the child elements with given className
+  use jQuerry? => sublime console not working w/ jquerry
+  access body
+  run through all it's child elements
+  test if element.classList.contains(className)
+  push element to answer if does
+  return answer
+  every childNode getElementsByClassName?
+  */
+
+
+  var answer = [];
+  var testNode = function(node) {
+  	//base case
+  	if(node.classList && node.classList.contains(className)) {
+  		answer.push(node);
+  	}
+  	//recursive call
+  	node.childNodes.forEach(childNode => testNode(childNode));
+
+  	return answer;
+  }
+
+  testNode(document.body);
+
+  return answer;
+
 };
+
+console.log(getElementsByClassName());
