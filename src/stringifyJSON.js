@@ -4,7 +4,12 @@
 
 var stringifyJSON = function(obj) {
 	
- 	/*
+	return stringifyOptForTco(obj);
+
+};
+
+function stringifyOptForTco(obj) {
+	 	/*
  					 FOLLOW JSON FORMAT 
  	for(var key in obj) {
 		stringObject.push('"',key,'"',:, '"',obj[key]],'"');
@@ -16,7 +21,6 @@ var stringifyJSON = function(obj) {
 	check for all possible cases: string, number, array, object, undefined, NaN, boolean, null, symbol, function 
 
 	*/
-
 
 	if(obj === undefined) {
 		return "undefined";
@@ -36,7 +40,7 @@ var stringifyJSON = function(obj) {
 
 	if(Array.isArray(obj)) {
 
-		var stringifiedArray = obj.slice().map(element => stringifyJSON(element));
+		var stringifiedArray = obj.slice().map(element => stringifyOptForTco(element));
 		return '[' + stringifiedArray + ']';
 	}
 
@@ -45,18 +49,12 @@ var stringifyJSON = function(obj) {
 		for(var key in obj) {
 			if(typeof obj[key] !== 'undefined' && typeof obj[key] !== 'function') {
 
-				stringifyObjectArray.push(stringifyJSON(key),':',stringifyJSON(obj[key]),',');
+				stringifyObjectArray.push(stringifyOptForTco(key),':',stringifyOptForTco(obj[key]),',');
 			}
 		}
-		return '{' + stringifyObjectArray.slice(0, -1).join('') + '}'
+		return '{' + stringifyObjectArray.slice(0, -1).join('') + '}';
 	}
 
-
-
-};
-
-// function stringifyOptForTco() {
-
-// }
+}
 
 console.log(stringifyJSON([1,[1,2],'string', {a:1, b:2}, null, function(){}]),);
